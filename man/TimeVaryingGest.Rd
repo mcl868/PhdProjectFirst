@@ -1,11 +1,11 @@
-\name{TimeVaryingGest}
-\alias{TimeVaryingGest}
+\name{TimeVaryGest}
+\alias{TimeVaryGest}
 - Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+TimeVaryGest
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
 TimeVaryingGest(x)
