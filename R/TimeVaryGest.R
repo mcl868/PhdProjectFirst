@@ -24,7 +24,8 @@ TimeVaryGest<-function(model, treatment, data, family=gaussian()){
     eval(parse(text=
                paste0("TreatRes[[",c(1:Ntreat),"]][",j,"]*B[,",c(1:Ntreat),",drop=FALSE]*data$",
                       all.vars(model)[1],"[",j,"]",collapse="+")))
-  
+  thetahat<-solve(SumMatrix)%*%SumMatrixResponse
+  colnames(thetahat)<-"Estimat"
+  rownames(thetahat)<-all.vars(model)[-1]
   return(solve(SumMatrix)%*%SumMatrixResponse)
-  
 }
