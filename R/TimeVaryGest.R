@@ -27,5 +27,5 @@ TimeVaryGest<-function(model, treatment, data, family=gaussian()){
   thetahat<-solve(SumMatrix)%*%SumMatrixResponse
   colnames(thetahat)<-"Estimat"
   rownames(thetahat)<-all.vars(model)[-1]
-  return(solve(SumMatrix)%*%SumMatrixResponse)
+  return(thetahat)
 }
