@@ -11,16 +11,19 @@ TimeVaryGest<-function(model, treatment, data, family=gaussian()){
     TemP<-matrix(0,Ntreat,Ntreat)
     for(k in 1:Ntreat){
       TemP<-TemP+
-        eval(parse(text=paste0(paste0("TreatRes[[",k,"]][",j,"]*B[,",k,",drop=FALSE]",collapse="+"),"%*%(",
-                               paste0("A[[",c(k:Ntreat),"]][",j,"]*B[",c(k:Ntreat),",,drop=FALSE]",collapse="+"),")")))
-      
+        eval(parse(text=
+                   paste0(paste0("TreatRes[[",k,"]][",j,"]*B[,",k,",drop=FALSE]",collapse="+"),"%*%(",
+                               paste0("A[[",c(k:Ntreat),"]][",j,"]*B[",c(k:Ntreat),",,drop=FALSE]",
+                                      collapse="+"),")")))
     }
     SumMatrix<-SumMatrix+TemP
   }
   
   SumMatrixResponse<-matrix(0,Ntreat,1)
   for(j in 1:nrow(data))SumMatrixResponse<-SumMatrixResponse+
-    eval(parse(text=paste0("TreatRes[[",c(1:Ntreat),"]][",j,"]*B[,",c(1:Ntreat),",drop=FALSE]*data$",all.vars(model)[1],"[",j,"]",collapse="+")))
+    eval(parse(text=
+               paste0("TreatRes[[",c(1:Ntreat),"]][",j,"]*B[,",c(1:Ntreat),",drop=FALSE]*data$",
+                      all.vars(model)[1],"[",j,"]",collapse="+")))
   
   return(solve(SumMatrix)%*%SumMatrixResponse)
   
