@@ -58,7 +58,8 @@ A1<-3*L+2.4*A0+rnorm(1000)
 L1<-3*A1+rnorm(1000)
 A2<-3*L1+2.4*A1+rnorm(1000)
 Y<-2*A0+3*A1+4*A2+rnorm(1000)
-DAG<-data.frame(Y,A0,A1,L,A2,L1);rm(list=c("Y","A0","A1","L","A2","L1"));ls()
+DAG<-data.frame(Y,A0,A1,L,A2,L1)
+rm(list=c("Y","A0","A1","L","A2","L1"))
 
 TimeVaryGest(model<-Y ~ A0 + A1 + A2,
              treatment=c(A0~1,
