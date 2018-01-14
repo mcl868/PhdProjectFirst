@@ -8,11 +8,20 @@ TimeVaryGest
   A concise (1-5 lines) description of what the function does. 
 }
 \usage{
-TimeVaryingGest(x)
+TimeVaryGest(model, treatment, data, family=gaussian())
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
+  \item{model}{
+%%     ~~Describe \code{x} here~~
+}
+  \item{treatment}{
+%%     ~~Describe \code{x} here~~
+}
+  \item{data}{
+%%     ~~Describe \code{x} here~~
+}
+  \item{family}{
 %%     ~~Describe \code{x} here~~
 }
 }
@@ -27,7 +36,7 @@ TimeVaryingGest(x)
 %% ...
 }
 \references{
-%% ~put references to the literature/web site here ~
+put references to the literature/web site here
 }
 \author{
 Thomas Maltesen
@@ -42,14 +51,23 @@ Thomas Maltesen
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+set.seed(3)
+A0<-rnorm(1000)
+L<-2*A0+rnorm(1000)
+A1<-3*L+2.4*A0+rnorm(1000)
+L1<-3*A1+rnorm(1000)
+A2<-3*L1+2.4*A1+rnorm(1000)
+Y<-2*A0+3*A1+4*A2+rnorm(1000)
+DAG<-data.frame(Y,A0,A1,L,A2,L1);rm(list=c("Y","A0","A1","L","A2","L1"));ls()
 
-## The function is currently defined as
-function (x) 
-{
-  }
+TimeVaryGest(model<-Y ~ A0 + A1 + A2,
+             treatment=c(A0~1,
+                         A1~A0+L,
+                         A2~A1+L1),
+             data=DAG,
+             family=gaussian())
+
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
