@@ -1,6 +1,6 @@
 \name{TimeVaryGest}
 \alias{TimeVaryGest}
-- Also NEED an '\alias' for EACH other topic documented here.
+%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 TimeVaryGest
 }
