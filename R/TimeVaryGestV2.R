@@ -1,4 +1,4 @@
-TimeVaryGestV2<-function(model, treatment, data, missingObs=FALSE, family=gaussian()){
+TimeVaryGestV2<-function(model, treatment, data, missingObs = FALSE, family = gaussian()){
   if(missingObs){
     data$Nmis<-eval(parse(text=paste0("is.na(data$",colnames(data),")",collapse = "+")))
     DataMis<-data[data$Nmis<=missingObs,]
