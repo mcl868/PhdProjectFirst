@@ -11,7 +11,7 @@ print.Gestimation<-function(x, digits=4, ...){
                  paste(object$treatment[[i]])[3],if(i==length(object$cond))(")," )else ","),
           "\n")
     if(object$missingObs)cat(paste0("                    missingObs = ",object$missingObs,","),"\n")
-    cat(paste0("                    data = ",2,")\n\n"))
+    cat(paste0("                    data = ",object$Namedata,")\n\n"))
     print(round(object$coefficients,digits))
   }
 }
