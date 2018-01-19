@@ -13,7 +13,7 @@ TimeVaryGcomp<-function(model, cond, data, missingObs=FALSE, family=gaussian()){
   
   for(i in 1:length(cond)){
     tempvalues<-predict(glm(cond[[i]],data = fulldata),type="response",newdata=DataMis)
-    eval(parse(text = paste0("new.data$",all.vars(cond[[i]])[1],"<-tempvalues")))}
+    eval(parse(text = paste0("DataMis$",all.vars(cond[[i]])[1],"<-tempvalues")))}
 
   betahat<-matrix(glm(model,data = DataMis)$coefficients[-1])
   colnames(betahat)<-"Estimat"
