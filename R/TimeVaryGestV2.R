@@ -44,7 +44,7 @@ TimeVaryGestV2<-function(model, treatment, data, missingObs=FALSE, family=gaussi
   colnames(thetahat)<-"Estimat"
   rownames(thetahat)<-all.vars(model)[-1]
 
-  result$thetahat<-thetahat
+  result$coefficients<-thetahat
   
   attr(result,"class")<-"Gestimation"
   out<-structure(result, class = "Gestimation")
