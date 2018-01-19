@@ -12,6 +12,7 @@ TimeVaryGcomp<-function(model, cond, data, missingObs = FALSE, family = gaussian
   result$cond<-cond
   result$missingObs<-missingObs
   result$data<-fulldata
+  result$Namedata<-deparse(substitute(data))
   
   for(i in 1:length(cond)){
     tempvalues<-predict(glm(cond[[i]],data = DataMis),type="response",newdata=fulldata)
