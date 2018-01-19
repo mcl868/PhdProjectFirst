@@ -3,9 +3,8 @@ print.Gcomputation<-function(x, digits=4, ...){
   rm(x)
   if(inherits(object,"Gcomputation")){
     cat("\n")
-    cat("Model:\n")
-    print(object$model)
+    print(paste0("Call: TimeVaryGcomp(model = ",paste(object$model)[2]," ",paste(object$model)[1]," ",paste(object$model)[3], ", data = "))
     cat("\n")
-    print(object$betahat)
+    print(object$coefficients)
     }
 }
