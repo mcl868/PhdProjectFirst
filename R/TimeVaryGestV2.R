@@ -20,6 +20,7 @@ TimeVaryGestV2<-function(model, treatment, data, missingObs = FALSE, family = ga
   result$treatment<-treatment
   result$missingObs<-missingObs
   result$data<-fulldata
+  result$Namedata<-deparse(substitute(data))
   
   SumMatrix<-matrix(0,Ntreat,Ntreat)
   for(j in 1:nrow(fulldata)){
