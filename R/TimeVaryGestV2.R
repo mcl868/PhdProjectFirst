@@ -17,6 +17,8 @@ TimeVaryGestV2<-function(model, treatment, data, missingObs = FALSE, family = ga
   
   
   result<-list(model=model)
+  result$treatment<-treatment
+  result$missingObs<-missingObs
   result$data<-fulldata
   
   SumMatrix<-matrix(0,Ntreat,Ntreat)
