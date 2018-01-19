@@ -1,7 +1,7 @@
 print.Gestimation<-function(x, digits=4, ...){
   object<-x
   rm(x)
-  if(inherits(object,"Gcomputation")){
+  if(inherits(object,"Gestimation")){
     cat("\n")
     cat(paste0("Call: TimeVaryGcomp(model = ",paste(object$model)[2]," ",paste(object$model)[1]," ",paste(object$model)[3], ","),"\n")
     for(i in 1:length(object$treatment))
