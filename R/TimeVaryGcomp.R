@@ -18,7 +18,7 @@ TimeVaryGcomp<-function(model, cond, data, missingObs=FALSE, family=gaussian()){
   betahat<-matrix(glm(model,data = fulldata)$coefficients[-1])
   colnames(betahat)<-"Estimat"
   rownames(betahat)<-all.vars(model)[-1]
-  result$betahat<-betahat
+  result$coefficients<-betahat
   
   attr(result,"class")<-"Gcomputation"
   out<-structure(result, class = "Gcomputation")
