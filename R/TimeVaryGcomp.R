@@ -9,6 +9,8 @@ TimeVaryGcomp<-function(model, cond, data, missingObs=FALSE, family=gaussian()){
   }
 
   result<-list(model=model)
+  result$cond<-cond
+  
   result$data<-fulldata
   
   for(i in 1:length(cond)){
