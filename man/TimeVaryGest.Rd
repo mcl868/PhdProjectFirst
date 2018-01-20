@@ -1,21 +1,21 @@
-\name{TimeVaryGcomp}
-\alias{TimeVaryGcomp}
+\name{TimeVaryGest}
+\alias{TimeVaryGest}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-TimeVaryGcoomp
+TimeVaryGest
 }
 \description{
   A concise (1-5 lines) description of what the function does. 
 }
 \usage{
-TimeVaryGcoomp(model, cond, data, missingObs = FALSE, family=gaussian())
+TimeVaryGest(model, treatment, missingObs, data, family=gaussian())
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{model}{
 %%     ~~Describe \code{x} here~~
 }
-  \item{cond}{
+  \item{treatment}{
 %%     ~~Describe \code{x} here~~
 }
   \item{missingObs}{
@@ -64,12 +64,12 @@ Y<-2*A0+3*A1+4*A2+rnorm(1000)
 DAG<-data.frame(Y,A0,A1,L,A2,L1)
 rm(list=c("Y","A0","A1","L","A2","L1"))
 
-TimeVaryGcomp(model<-Y ~ A0 + A1 + A2,
-              treatment=c(A0~1,
-                          A1~A0+L,
-                          A2~A1+L1),
-              data=DAG,
-              family=gaussian())
+TimeVaryGest(model<-Y ~ A0 + A1 + A2,
+             treatment=c(A0~1,
+                         A1~A0+L,
+                         A2~A1+L1),
+             data=DAG,
+             family=gaussian())
 
 
 }
