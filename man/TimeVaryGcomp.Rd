@@ -1,5 +1,5 @@
-\name{TimeVaryGcoomp}
-\alias{TimeVaryGcoomp}
+\name{TimeVaryGcomp}
+\alias{TimeVaryGcomp}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 TimeVaryGcoomp
