@@ -3,7 +3,7 @@ print.Gestimation<-function(x, digits=4, ...){
   rm(x)
   if(inherits(object,"Gestimation")){
     cat("\n")
-    cat(paste0("Call: TimeVaryGcomp(model = ",paste(object$model)[2]," ",paste(object$model)[1]," ",paste(object$model)[3], ","),"\n")
+    cat(paste0("Call: TimeVaryGest(model = ",paste(object$model)[2]," ",paste(object$model)[1]," ",paste(object$model)[3], ","),"\n")
     for(i in 1:length(object$treatment))
       cat(paste0(if(i==1)"                    cond = c(" else "                             ",
                  paste(object$treatment[[i]])[2]," ",

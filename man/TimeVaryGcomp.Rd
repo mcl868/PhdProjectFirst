@@ -2,7 +2,7 @@
 \alias{TimeVaryGcomp}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-TimeVaryGcoomp
+TimeVaryGcomp
 }
 \description{
   A concise (1-5 lines) description of what the function does. 
@@ -54,24 +54,33 @@ Thomas Maltesen
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
+\dontrun{
 set.seed(3)
-A0<-rnorm(1000)
-L<-2*A0+rnorm(1000)
-A1<-3*L+2.4*A0+rnorm(1000)
-L1<-3*A1+rnorm(1000)
-A2<-3*L1+2.4*A1+rnorm(1000)
-Y<-2*A0+3*A1+4*A2+rnorm(1000)
-DAG<-data.frame(Y,A0,A1,L,A2,L1)
-rm(list=c("Y","A0","A1","L","A2","L1"))
+N<-2000
+A0<-rnorm(N)
+L0<-2*A0+rnorm(N)
+A1<-3*L0+2.4*A0+rnorm(N)
+L1<-3*A1+rnorm(N)
+A2<-3*L1+2.4*A1+rnorm(N)
+Y<-2*A0+3*A1+4*A2+rnorm(N)
+DAG<-data.frame(Y,A0,A1,A2,L0,L1)
+rm(list=c("Y","A0","A1","A2","L0","L1"))
 
 TimeVaryGcomp(model<-Y ~ A0 + A1 + A2,
-              treatment=c(A0~1,
-                          A1~A0+L,
-                          A2~A1+L1),
+              cond=c(L0 ~ A0,
+                     L1 ~ A1),
               data=DAG,
               family=gaussian())
 
+Call: TimeVaryGcomp(model = Y ~ A0 + A1 + A2, 
+                    cond = c(L0 ~ A0, 
+                             L1 ~ A1), 
+                    data = DAG)
 
+            A0     A1     A2
+Estimat 2.1187 3.0818 3.9915
+
+}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
