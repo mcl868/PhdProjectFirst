@@ -1,4 +1,4 @@
-TimeVaryGest<-function(model, treatment, data, missingObs = FALSE, family = gaussian()){
+TimeVaryGest<-function(model, cond, data, missingObs = FALSE, family = gaussian()){
   if(missingObs){
     data$Nmis<-eval(parse(text=paste0("is.na(data$",colnames(data),")",collapse = "+")))
     DataMis<-data[data$Nmis<=missingObs,]
@@ -8,16 +8,16 @@ TimeVaryGest<-function(model, treatment, data, missingObs = FALSE, family = gaus
     fulldata<-DataMis<-data[eval(parse(text=paste0("!is.na(data$",colnames(data),")",collapse = " & "))),]
   }
  
-  Ahat<-lapply(1:length(treatment),function(i)predict(glm(treatment[[i]],data=DataMis,family=family),type = "response",newdata=fulldata))
-  A<-lapply(1:length(treatment),function(i)eval(parse(text=paste0("fulldata$", all.vars(formula(treatment[[i]]))[1]))))
-  TreatRes<-lapply(1:length(treatment),function(i)A[[i]]-Ahat[[i]])
+  Ahat<-lapply(1:length(cond),function(i)predict(glm(cond[[i]],data=DataMis,family=family),type = "response",newdata=fulldata))
+  A<-lapply(1:length(cond),function(i)eval(parse(text=paste0("fulldata$", all.vars(formula(cond[[i]]))[1]))))
+  TreatRes<-lapply(1:length(cond),function(i)A[[i]]-Ahat[[i]])
   
-  Ntreat<-length(treatment)
+  Ntreat<-length(cond)
   B<-diag(Ntreat)
   
   
   result<-list(model=model)
-  result$treatment<-treatment
+  result$cond<-cond
   result$missingObs<-missingObs
   result$data<-fulldata
   result$Namedata<-deparse(substitute(data))

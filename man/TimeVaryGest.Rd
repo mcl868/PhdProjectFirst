@@ -8,14 +8,14 @@ TimeVaryGest
   A concise (1-5 lines) description of what the function does. 
 }
 \usage{
-TimeVaryGest(model, treatment, missingObs, data, family=gaussian())
+TimeVaryGest(model, cond, missingObs, data, family=gaussian())
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{model}{
 %%     ~~Describe \code{x} here~~
 }
-  \item{treatment}{
+  \item{cond}{
 %%     ~~Describe \code{x} here~~
 }
   \item{missingObs}{
@@ -55,30 +55,54 @@ Thomas Maltesen
 }
 \examples{
 \dontrun{
-set.seed(3)
 N<-2000
-set.seed(27)
+set.seed(3)
 A0<-rnorm(N)
 L0<-2*A0+rnorm(N)
 A1<-3*L0+2.4*A0+rnorm(N)
-Y<-2*A0+3*A1+rnorm(N)
-DAG<-data.frame(Y,A0,A1,L0)
-rm(list=c("Y","A0","A1","L0"))
+Y<-2*A0+2*L0+3*A1+rnorm(N)
+DAG.2<-data.frame(Y,A0,A1,L0)
+rm("Y", "A0", "A1", "L0")
 
-TimeVaryGest(model<-Y ~ A0 + A1,
-             treatment=c(A0~1,
-                         A1~A0+L0),
-             data=DAG,
-             family=gaussian())
+set.seed(3)
+A0<-rnorm(N)
+L0<-2*A0+rnorm(N)
+A1<-3*L0+2.4*A0+rnorm(N)
+L1<-2*A1+L0+rnorm(N)
+A2<-1*L1+2.2*A1+rnorm(N)
+Y<-2*A0+2*L0+3*A1+1*L1+2*A2+rnorm(N)
+DAG.3<-data.frame(Y,A0,A1,A2,L0,L1)
+rm("Y", "A0", "A1", "A2", "L0", "L1")
+
+TimeVaryGest(model=Y ~ A0 + A1,
+             cond=c(A0~1,
+                    A1~A0+L0),
+             data=DAG.2)
 
 Call: TimeVaryGest(model = Y ~ A0 + A1, 
-                   treatment = c(A0 ~ 1, 
-                                 A1 ~ A0 + L0), 
-                    data = DAG)
+                   cond = c(A0 ~ 1, 
+                            A1 ~ A0 + L0), 
+                   data = DAG.2)
 
 Coefficients:
             A0     A1
-Estimat 2.0978 2.9905
+Estimat 5.7444 3.0342
+
+TimeVaryGest(model=Y ~ A0 + A1 + A2,
+             cond=c(A0~1,
+                    A1~A0+L0,
+                    A2~A1+L1),
+             data=DAG.3)
+
+Call: TimeVaryGest(model = Y ~ A0 + A1 + A2, 
+                   cond = c(A0 ~ 1, 
+                            A1 ~ A0 + L0, 
+                            A2 ~ A1 + L1), 
+                   data = DAG.3)
+
+Coefficients:
+            A0     A1     A2
+Estimat 7.8491 5.2057 1.9587
 }
 
 }
