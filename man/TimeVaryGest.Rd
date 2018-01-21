@@ -57,32 +57,29 @@ Thomas Maltesen
 \dontrun{
 set.seed(3)
 N<-2000
+set.seed(27)
 A0<-rnorm(N)
 L0<-2*A0+rnorm(N)
 A1<-3*L0+2.4*A0+rnorm(N)
-L1<-3*A1+rnorm(N)
-A2<-3*L1+2.4*A1+rnorm(N)
-Y<-2*A0+3*A1+4*A2+rnorm(N)
-DAG<-data.frame(Y,A0,A1,A2,L0,L1)
-rm(list=c("Y","A0","A1","A2","L0","L1"))
+Y<-2*A0+3*A1+rnorm(N)
+DAG<-data.frame(Y,A0,A1,L0)
+rm(list=c("Y","A0","A1","L0"))
 
-TimeVaryGest(model<-Y ~ A0 + A1 + A2,
+TimeVaryGest(model<-Y ~ A0 + A1,
              treatment=c(A0~1,
-                         A1~A0+L0,
-                         A2~A1+L1),
+                         A1~A0+L0),
              data=DAG,
              family=gaussian())
 
 Call: TimeVaryGest(model = Y ~ A0 + A1 + A2, 
-                    cond = c(A0 ~ 1, 
-                             A1 ~ A0 + L0, 
-                             A2 ~ A1 + L1, 
+                   treatment = c(A0 ~ 1, 
+                                 A1 ~ A0 + L0), 
                     data = DAG)
 
             A0     A1     A2
 Estimat 1.9774 3.5542 3.9515
-
 }
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

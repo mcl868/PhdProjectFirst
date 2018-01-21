@@ -12,6 +12,7 @@ print.Gcomputation<-function(x, digits=4, ...){
           "\n")
     if(object$missingObs)cat(paste0("                    missingObs = ",object$missingObs,","),"\n")
     cat(paste0("                    data = ",object$Namedata,")\n\n"))
+    cat("Coefficients:\n")
     print(round(object$coefficients,digits))
   }
 }
