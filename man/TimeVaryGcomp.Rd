@@ -79,8 +79,8 @@ Call: TimeVaryGcomp(model = Y ~ A0 + A1 + A2,
 
             A0     A1     A2
 Estimat 2.1187 3.0818 3.9915
-
 }
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
