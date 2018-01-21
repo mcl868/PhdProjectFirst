@@ -71,13 +71,14 @@ TimeVaryGest(model<-Y ~ A0 + A1,
              data=DAG,
              family=gaussian())
 
-Call: TimeVaryGest(model = Y ~ A0 + A1 + A2, 
+Call: TimeVaryGest(model = Y ~ A0 + A1, 
                    treatment = c(A0 ~ 1, 
                                  A1 ~ A0 + L0), 
                     data = DAG)
 
-            A0     A1     A2
-Estimat 1.9774 3.5542 3.9515
+Coefficients:
+            A0     A1
+Estimat 2.0978 2.9905
 }
 
 }

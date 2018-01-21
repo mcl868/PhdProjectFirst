@@ -8,7 +8,7 @@ print.Gestimation<-function(x, digits=4, ...){
       cat(paste0(if(i==1)"                   treatment = c(" else "                                 ",
                  paste(object$treatment[[i]])[2]," ",
                  paste(object$treatment[[i]])[1]," ",
-                 paste(object$treatment[[i]])[3],if(i==length(object$cond))(")," )else ","),
+                 paste(object$treatment[[i]])[3],if(i==length(object$treatment))(")," )else ","),
           "\n")
     if(object$missingObs)cat(paste0("                    missingObs = ",object$missingObs,","),"\n")
     cat(paste0("                    data = ",object$Namedata,")\n\n"))

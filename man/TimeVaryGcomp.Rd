@@ -55,30 +55,27 @@ Thomas Maltesen
 }
 \examples{
 \dontrun{
-set.seed(3)
 N<-2000
+set.seed(27)
 A0<-rnorm(N)
 L0<-2*A0+rnorm(N)
 A1<-3*L0+2.4*A0+rnorm(N)
-L1<-3*A1+rnorm(N)
-A2<-3*L1+2.4*A1+rnorm(N)
-Y<-2*A0+3*A1+4*A2+rnorm(N)
-DAG<-data.frame(Y,A0,A1,A2,L0,L1)
-rm(list=c("Y","A0","A1","A2","L0","L1"))
+Y<-2*A0+3*A1+rnorm(N)
+DAG<-data.frame(Y,A0,A1,L0)
+rm(list=c("Y","A0","A1","L0"))
 
-TimeVaryGcomp(model<-Y ~ A0 + A1 + A2,
-              cond=c(L0 ~ A0,
-                     L1 ~ A1),
+TimeVaryGcomp(model<-Y ~ A0 + A1,
+              cond=c(L0~A0),
               data=DAG,
               family=gaussian())
 
-Call: TimeVaryGcomp(model = Y ~ A0 + A1 + A2, 
-                    cond = c(L0 ~ A0, 
-                             L1 ~ A1), 
+Call: TimeVaryGcomp(model = Y ~ A0 + A1, 
+                    cond = c(L0 ~ A0), 
                     data = DAG)
 
-            A0     A1     A2
-Estimat 2.1187 3.0818 3.9915
+Coefficients:
+            A0     A1
+Estimat 1.9603 3.0066
 }
 
 }
