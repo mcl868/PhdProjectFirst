@@ -1,4 +1,7 @@
 TimeVaryGcomp<-function(model, cond, data, missingObs = FALSE, family = gaussian()){
+  result<-list(model=model)
+  result$Namedata<-deparse(substitute(data))
+
   if(missingObs){
     data$Nmis<-eval(parse(text=paste0("is.na(data$",colnames(data),")",collapse = "+")))
     DataMis<-data[data$Nmis<=missingObs,]
@@ -8,8 +11,6 @@ TimeVaryGcomp<-function(model, cond, data, missingObs = FALSE, family = gaussian
     fulldata<-DataMis<-data[eval(parse(text=paste0("!is.na(data$",colnames(data),")",collapse = " & "))),]
   }
 
-  result<-list(model=model)
-  result$Namedata<-deparse(substitute(data))
   result$cond<-cond
   result$missingObs<-missingObs
   result$data<-fulldata
