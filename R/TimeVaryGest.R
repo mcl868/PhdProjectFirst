@@ -1,4 +1,7 @@
 TimeVaryGest<-function(model, cond, data, missingObs = FALSE, family = gaussian()){
+  result<-list(model=model)
+  result$Namedata<-deparse(substitute(data))
+
   if(missingObs){
     data$Nmis<-eval(parse(text=paste0("is.na(data$",colnames(data),")",collapse = "+")))
     DataMis<-data[data$Nmis<=missingObs,]
@@ -14,10 +17,7 @@ TimeVaryGest<-function(model, cond, data, missingObs = FALSE, family = gaussian(
   
   Ntreat<-length(cond)
   B<-diag(Ntreat)
-  
-  
-  result<-list(model=model)
-  result$Namedata<-deparse(substitute(data))
+
   result$cond<-cond
   result$missingObs<-missingObs
   result$data<-fulldata
