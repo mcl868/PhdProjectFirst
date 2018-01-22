@@ -17,11 +17,11 @@ TimeVaryGest<-function(model, cond, data, missingObs = FALSE, family = gaussian(
   
   
   result<-list(model=model)
+  result$Namedata<-deparse(substitute(data))
   result$cond<-cond
   result$missingObs<-missingObs
   result$data<-fulldata
   result$Estdata<-DataMis
-  result$Namedata<-deparse(substitute(data))
   
   SumMatrix<-matrix(0,Ntreat,Ntreat)
   for(j in 1:nrow(fulldata)){
