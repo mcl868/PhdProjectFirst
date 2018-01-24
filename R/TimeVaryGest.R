@@ -29,10 +29,11 @@ TimeVaryGest<-function(model, cond, data, missingObs = FALSE, family = gaussian(
     TemP<-matrix(0,Ntreat,Ntreat)
     for(k in 1:Ntreat){
       TemP<-TemP+
-        eval(parse(text=
-                     paste0(paste0("TreatRes[[",k,"]][",j,"]*B[,",k,",drop=FALSE]",collapse="+"),"%*%(",
-                            paste0("A[[",c(k:Ntreat),"]][",j,"]*B[",c(k:Ntreat),",,drop=FALSE]",
-                                   collapse="+"),")")))
+      TreatRes[[k]][j]*B[,k,drop=FALSE]%*%rowSums(sapply(k:Ntreat, function(l)A[[l]][j]*B[l,,drop=FALSE]))
+#        eval(parse(text=
+#                     paste0(paste0("TreatRes[[",k,"]][",j,"]*B[,",k,",drop=FALSE]",collapse="+"),"%*%(",
+#                            paste0("A[[",c(k:Ntreat),"]][",j,"]*B[",c(k:Ntreat),",,drop=FALSE]",
+#                                   collapse="+"),")")))
     }
     SumMatrix<-SumMatrix+TemP
   }
