@@ -6,6 +6,7 @@ TimeVaryGcomp<-function(model, cond, data, missingObs = FALSE, family = gaussian
     data$Nmis<-eval(parse(text=paste0("is.na(data$",colnames(data),")",collapse = "+")))
     DataMis<-data[data$Nmis<=missingObs,]
     fulldata<-data[eval(parse(text=paste0("!is.na(data$",colnames(data),")",collapse = " & "))),]
+    DataMis$Nmis<-NULL
     fulldata$Nmis<-NULL
   } else {
     fulldata<-DataMis<-data[eval(parse(text=paste0("!is.na(data$",colnames(data),")",collapse = " & "))),]
