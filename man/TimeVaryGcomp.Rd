@@ -90,19 +90,19 @@ Estimat 5.7444 3.0342
 
 TimeVaryGcomp(model=Y ~ A0 + A1 + A2,
               cond=c(L0 ~ A0,
-                     L1 ~ L0 + A1,
+                     L1 ~ L0 + A1 + A0,
                      Y ~ A0 + A1 + A2 + L0 + L1),
               data=DAG.3)
 
 Call: TimeVaryGcomp(model = Y ~ A0 + A1 + A2, 
                     cond = c(L0 ~ A0, 
-                             L1 ~ L0 + A1, 
+                             L1 ~ L0 + A1 + A0, 
                              Y ~ A0 + A1 + A2 + L0 + L1), 
                     data = DAG.3)
 
 Coefficients:
-            A0     A1     A2
-Estimat 7.8891 5.1371 1.9732
+            A0     A1    A2
+Estimat 7.8372 4.9951 2.005
 }
 
 }
