@@ -91,18 +91,18 @@ Estimat 5.7444 3.0342
 TimeVaryGest(model=Y ~ A0 + A1 + A2,
              cond=c(A0~1,
                     A1~A0+L0,
-                    A2~A1+L1),
+                    A2~A1+L1+A0+L0),
              data=DAG.3)
 
 Call: TimeVaryGest(model = Y ~ A0 + A1 + A2, 
                    cond = c(A0 ~ 1, 
                             A1 ~ A0 + L0, 
-                            A2 ~ A1 + L1), 
+                            A2 ~ A1 + L1 + A0 + L0), 
                    data = DAG.3)
 
 Coefficients:
-            A0     A1     A2
-Estimat 7.8491 5.2057 1.9587
+            A0     A1    A2
+Estimat 7.8372 4.9951 2.005
 }
 
 }
