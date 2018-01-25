@@ -24,26 +24,34 @@ TimeVaryGest<-function(model, cond, data, missingObs = FALSE, family = gaussian(
   result$data<-fulldata
   result$Estdata<-DataMis
   
-  SumMatrix<-matrix(0,Ntreat,Ntreat)
-  for(j in 1:nrow(fulldata)){
-    TemP<-matrix(0,Ntreat,Ntreat)
-    for(k in 1:Ntreat){
-      TemP<-TemP+
-      TreatRes[[k]][j]*B[,k,drop=FALSE]%*%rowSums(sapply(k:Ntreat, function(l)A[[l]][j]*B[l,,drop=FALSE]))
+#  SumMatrix<-matrix(0,Ntreat,Ntreat)
+#  for(j in 1:nrow(fulldata)){
+#    TemP<-matrix(0,Ntreat,Ntreat)
+#    for(k in 1:Ntreat){
+#      TemP<-TemP+
+#      TreatRes[[k]][j]*B[,k,drop=FALSE]%*%rowSums(sapply(k:Ntreat, function(l)A[[l]][j]*B[l,,drop=FALSE]))
 #        eval(parse(text=
 #                     paste0(paste0("TreatRes[[",k,"]][",j,"]*B[,",k,",drop=FALSE]",collapse="+"),"%*%(",
 #                            paste0("A[[",c(k:Ntreat),"]][",j,"]*B[",c(k:Ntreat),",,drop=FALSE]",
 #                                   collapse="+"),")")))
-    }
-    SumMatrix<-SumMatrix+TemP
-  }
+#    }
+#    SumMatrix<-SumMatrix+TemP
+#  }
+  SumMatrix<-listSums(
+    lapply(1:nrow(fulldata),function(j)
+      listSums(lapply(1:Ntreat, function(k)
+        TreatRes[[k]][j]*B[,k,drop=FALSE]%*%rowSums(sapply(k:Ntreat, function(l) A[[l]][j]*B[l,,drop=FALSE]))))))
   result$SumMatrix<-SumMatrix
 
-  SumMatrixResponse<-matrix(0,Ntreat,1)
-  for(j in 1:nrow(fulldata))SumMatrixResponse<-SumMatrixResponse+
-    eval(parse(text=
-                 paste0("TreatRes[[",c(1:Ntreat),"]][",j,"]*B[,",c(1:Ntreat),",drop=FALSE]*fulldata$",
-                        all.vars(model)[1],"[",j,"]",collapse="+")))
+#  SumMatrixResponse<-matrix(0,Ntreat,1)
+#  for(j in 1:nrow(fulldata))SumMatrixResponse<-SumMatrixResponse+
+#    eval(parse(text=
+#                 paste0("TreatRes[[",c(1:Ntreat),"]][",j,"]*B[,",c(1:Ntreat),",drop=FALSE]*fulldata$",
+#                        all.vars(model)[1],"[",j,"]",collapse="+")))
+  SumMatrixResponse <- listSums(
+    lapply(1:nrow(fulldata),function(j)
+      listSums(lapply(1:Ntreat, function(k)
+        TreatRes[[k]][j]*B[,k,drop=FALSE]*fulldata[j,all.vars(model)[1]]))))
   result$SumMatrixResponse<-SumMatrixResponse
   
   thetahat<-solve(SumMatrix)%*%SumMatrixResponse
