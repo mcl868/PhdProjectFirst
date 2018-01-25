@@ -23,7 +23,11 @@ TimeVaryGest<-function(model, cond, data, missingObs = FALSE, family = gaussian(
   result$missingObs<-missingObs
   result$data<-fulldata
   result$Estdata<-DataMis
-  
+  result$NBallObs<-nrow(fulldata)
+  result$NBestObs<-nrow(DataMis)
+  result$NonMis<-colSums(!is.na(DataMis))
+
+
 #  SumMatrix<-matrix(0,Ntreat,Ntreat)
 #  for(j in 1:nrow(fulldata)){
 #    TemP<-matrix(0,Ntreat,Ntreat)
