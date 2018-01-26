@@ -1,8 +1,8 @@
-summary.Gestimation<-function(x, n=100, ...){
+summary.Gestimation<-function(x, ...){
   object<-x
   rm(x)
   if(inherits(object,"Gestimation")){
-    xboot<-bootstrapTimeVary(object, n)
+    xboot<-bootstrapTimeVary(object, object$nboot)
     NamEst<-colnames(xboot)
     EstMatrix<-matrix(NA,nrow=length(NamEst),ncol=4)
     for(i in 1:length(NamEst))
