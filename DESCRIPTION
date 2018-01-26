@@ -8,6 +8,7 @@ Description: PhdProjectFirst.
 Imports: HelpPackage
 Remotes: mcl868/HelpPackage
 Depends: HelpPackage
+URL: https://github.com/mcl868/PhdProjectFirst.git
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
