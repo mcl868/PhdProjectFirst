@@ -1,7 +1,19 @@
 summary.Gcomputation<-function(x, ...){
   object<-x
   rm(x)
+  result<-list()
   if(inherits(object,"Gcomputation")){
+    result$model<-object$model
+    result$Namedata<-object$Namedata
+    result$cond<-object$cond
+    result$missingObs<-object$missingObs
+    result$data<-object$data
+    result$Estdata<-object$Estdata
+    result$NBallObs<-object$NBallObs
+    result$NBestObs<-object$NBestObs
+    result$NonMis<-object$NonMis
+    result$nboot<-object$nboot
+    
     xboot<-bootstrapTimeVary(object, object$nboot)
     NamEst<-colnames(xboot)
     EstMatrix<-matrix(NA,nrow=length(NamEst),ncol=4)
@@ -12,7 +24,7 @@ summary.Gcomputation<-function(x, ...){
             object$coefficients[,NamEst[i]]+qnorm(0.025)*sqrt(xboot[,NamEst[i]]),
             object$coefficients[,NamEst[i]]+qnorm(0.975)*sqrt(xboot[,NamEst[i]]))
   }
-  result<-list(Est=EstMatrix)
+  result<-Est$EstMatrix
   attr(result, "class") <- "SumGcomp"
   out <- structure(result, class = "SumGcomp")
   return(out)
