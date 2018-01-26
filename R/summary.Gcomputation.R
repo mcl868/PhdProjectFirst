@@ -26,8 +26,8 @@ summary.Gcomputation<-function(x, ...){
     rownames(EstMatrix)<-NamEst
     colnames(EstMatrix)<-c("Estimate","Std. Err.","Lower","Upper")
   }
-  result$Est<-EstMatrix
-  attr(result, "class") <- "SumGcomp"
+  result$coefficients<-EstMatrix
+  attr(result, "class")<-"SumGcomp"
   out <- structure(result, class = "SumGcomp")
   return(out)
 }
