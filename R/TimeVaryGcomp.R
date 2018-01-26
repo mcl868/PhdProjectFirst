@@ -15,6 +15,7 @@ TimeVaryGcomp<-function(model, cond, data, missingObs = FALSE, family = gaussian
   result$cond<-cond
   result$missingObs<-missingObs
   result$data<-fulldata
+  result$Estdata<-DataMis
   result$NBallObs<-nrow(fulldata)
   result$NBestObs<-nrow(DataMis)
   result$NonMis<-colSums(!is.na(DataMis))
