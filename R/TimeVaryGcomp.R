@@ -1,4 +1,4 @@
-TimeVaryGcomp<-function(model, cond, data, missingObs = FALSE, family = gaussian()){
+TimeVaryGcomp<-function(model, cond, data, nboot=1000, missingObs = FALSE, family = gaussian(), ...){
   result<-list(model=model)
   result$Namedata<-deparse(substitute(data))
 
@@ -19,6 +19,7 @@ TimeVaryGcomp<-function(model, cond, data, missingObs = FALSE, family = gaussian
   result$NBallObs<-nrow(fulldata)
   result$NBestObs<-nrow(DataMis)
   result$NonMis<-colSums(!is.na(DataMis))
+  result$nboot<-nboot
   
   for(i in 1:length(cond)){
     tempvalues<-predict(glm(cond[[i]],data = DataMis),type="response",newdata=fulldata)
