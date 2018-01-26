@@ -26,7 +26,7 @@ summary.Gestimation<-function(x, ...){
     rownames(EstMatrix)<-NamEst
     colnames(EstMatrix)<-c("Estimate","Std. Err.","Lower","Upper")
   }
-  result$Est<-EstMatrix
+  result$coefficients<-EstMatrix
   attr(result, "class") <- "SumGest"
   out <- structure(result, class = "SumGest")
   return(out)
