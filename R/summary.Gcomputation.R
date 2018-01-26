@@ -1,8 +1,8 @@
-summary.Gcomputation<-function(x, n=100, ...){
+summary.Gcomputation<-function(x, ...){
   object<-x
   rm(x)
   if(inherits(object,"Gcomputation")){
-    xboot<-bootstrapTimeVary(object, n)
+    xboot<-bootstrapTimeVary(object, object$nboot)
     NamEst<-colnames(xboot)
     EstMatrix<-matrix(NA,nrow=length(NamEst),ncol=4)
     for(i in 1:length(NamEst))
