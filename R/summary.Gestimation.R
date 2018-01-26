@@ -23,6 +23,8 @@ summary.Gestimation<-function(x, ...){
             sqrt(xboot[,NamEst[i]]),
             object$coefficients[,NamEst[i]]+qnorm(0.025)*sqrt(xboot[,NamEst[i]]),
             object$coefficients[,NamEst[i]]+qnorm(0.975)*sqrt(xboot[,NamEst[i]]))
+    rownames(EstMatrix)<-NamEst
+    colnames(EstMatrix)<-c("Estimate","Std. Err.","Lower","Upper")
   }
   result$Est<-EstMatrix
   attr(result, "class") <- "SumGest"
