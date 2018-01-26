@@ -1,4 +1,4 @@
-bootstrapTimeVary<-function(x,n=1000){
+bootstrapTimeVary<-function(x, n, ...){
   object<-x
   rm(x)
   if(inherits(object,"Gcomputation") | inherits(object,"Gestimation")){
@@ -15,6 +15,7 @@ bootstrapTimeVary<-function(x,n=1000){
                         missingObs=object$missingObs,
                         data=object$Estdata[booo[[i]],])$coefficients)
       }
-    }
-  return(listVar(boot))
+  }
+  result<-listVar(boot)
+  return(result)
 }
