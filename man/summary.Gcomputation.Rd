@@ -26,57 +26,32 @@ summary.Gcomputation(x, digist = 4, ...)
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-  \item{Method}{
-Tells how the Bandwidth-object is created. This method will marked as folliwing: "Bootstrap" or "Cross validation".
-}
-  \item{Curve}{
+  \item{model}{
 ----
 }
-  \item{y.values}{
-If \code{values_y} is missing in the statment then a sequence of a 51 grid that start from the 0.5 percent quantile of \code{Yseq} and ends with the 99.5 percent quantile of \code{Yseq} otherwise the sequence in the statement.
+  \item{Namedata}{
+----
 }
-  \item{h.values}{
-Sequence of h values.
+  \item{cond}{
+----
 }
-  \item{min.h}{
-The \code{h} of the sequence \code{values_h} that minimizes the curve of bootstrap.
+  \item{data}{
+----
 }
-  \item{min}{
-The minimum of the bootstrap or "Cross validation" curve.
+  \item{Estdata}{
+----
 }
-  \item{max}{
-The maximum of the bootstrap or "Cross validation" curve.
+  \item{NBallObs}{
+----
 }
-  \item{lower}{
-The value of the 2.5 percent quantile of \code{Xseq} otherwise the sequence in the statement.
+  \item{NBestObs}{
+----
 }
-  \item{upper}{
-The value of the 97.5 percent quantile of \code{Xseq} otherwise the sequence in the statement.
+  \item{nboot}{
+----
 }
-  \item{Data.Frame}{
---
-}
-The following applies only for the bootstrap-method:
-  \item{Sigma}{
-The value of \eqn{\sigma} for the particular model. Look at \code{\link{Bootstrap}} for further information.
-}
-  \item{coef}{
-The values of coefficients of the polynumium for the particular model. Look at \code{\link{Bootstrap}} for further information.
-}
-  \item{hatplugIn}{
-If a kernel \code{W} is defined in the workspace without using the function \code{Kernelobj} (See \code{\link{Kernelobj}} for further information) then you will not obtain the value of the plug-in \eqn{\hat{h}}. If not kernel \code{W} is defined in the workspace at all then by DEFAULT you will obtain the plug-in \eqn{\hat{h}} because the standard normal distribution is picked as the kernel \code{W}. See \code{\link{plugin.h}} for further information.
-}
-  \item{alpha_star}{
-It applies the same option here as for \code{hatplugIn}.
-}
-  \item{delta_star}{
-It applies the same option here as for \code{hatplugIn}.
-}
-  \item{kappa2}{
-It applies the same option here as for \code{hatplugIn}.
-}
-  \item{tau.sq}{
-It applies the same option here as for \code{hatplugIn}.
+  \item{coefficients}{
+----
 }
 }
 \references{
@@ -96,19 +71,34 @@ Thomas Maltesen
 }
 \examples{
 \dontrun{
-b.h<-Bootstrap(Yseq=OU_251[[1]],
-               values_h=seq(0.1,0.32,length.out=5),
-               y.grid=11,
-               NBoot=2)
-b.h
-summary(b.h)}
+N<-2000
+set.seed(3)
+A0<-rnorm(N)
+L0<-2*A0+rnorm(N)
+A1<-3*L0+2.4*A0+rnorm(N)
+Y<-2*A0+2*L0+3*A1+rnorm(N)
+DAG.2<-data.frame(Y,A0,A1,L0)
+rm("Y", "A0", "A1", "L0")
 
-\dontrun{
-cv.h<-CrossVMulti(Yseq=CIR_251[[1]],
-                  values_h=seq(0.1,1,length.out=17),
-                  y.grid=19)
-cv.h
-summary(cv.h)}
+G<-
+TimeVaryGcomp(model=Y ~ A0 + A1,
+              cond=c(L0 ~ A0,
+                     Y ~ A0 + A1 + L0),
+              data=DAG.2)
+
+G
+summary(G)
+Call: TimeVaryGcomp(model = Y ~ A0 + A1, 
+                    cond = c(L0 ~ A0, 
+                             Y ~ A0 + A1 + L0), 
+                    data = DAG.2)
+
+Coefficients:         95%-Conf.Int.
+   Estimate Std. Err.  Lower  Upper
+A0   5.7444    0.1869 5.3781 6.1107
+A1   3.0342    0.0221 2.9908 3.0776
+
+The size of the dataset used to estimtation: 2000}
 }
 \keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
 \keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
