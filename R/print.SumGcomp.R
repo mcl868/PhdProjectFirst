@@ -1,7 +1,7 @@
-print.Gestimation<-function(x, digits=4, ...){
+print.SumGest<-function(x, digits=4, ...){
   object<-x
   rm(x)
-  if(inherits(object,"Gestimation")){
+  if(inherits(object,"SumGest")){
     cat("\n")
     cat(paste0("Call: TimeVaryGest(model = ",paste(object$model)[2]," ",paste(object$model)[1]," ",paste(object$model)[3], ","),"\n")
     for(i in 1:length(object$cond))
@@ -12,8 +12,15 @@ print.Gestimation<-function(x, digits=4, ...){
           "\n")
     if(object$missingObs)cat(paste0("                    missingObs = ",object$missingObs,","),"\n")
     if(!object$nboot==100)cat(paste0("                    nboot = ",object$nboot,",\n"))
-    cat(paste0("                   data = ",object$Namedata,")\n\n"))
-    cat("Coefficients:\n")
+    cat(paste0("                    data = ",object$Namedata,")\n\n"))
+    cat("Coefficients:         95%-Conf.Int.\n")
     print(round(object$coefficients,digits))
+    cat("\n")
+    cat("The size of the dataset used to estimtation:",object$NBestObs,"\n")
+    if(object$missingObs){
+      cat("The size of the dataset with out any missing observations:",object$NBallObs,"\n")
+      cat("The distribution of observed observations:\n")
+      print(round(object$NonMis))
+    }
   }
 }

@@ -3,5 +3,5 @@
 ```markdown
 install.packages("devtools")
 library(devtools)
-install_github('mcl868/PhdProjectFirst')
+install_github("mcl868/PhdProjectFirst")
 ```
