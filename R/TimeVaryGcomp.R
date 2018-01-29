@@ -26,7 +26,7 @@ TimeVaryGcomp<-function(model, cond, data, nboot=100, missingObs = FALSE, family
     tempRes<-GenLinModel$residuals
     tempvalues<-predict(GenLinModel,type="response",newdata=fulldata)
     eval(parse(text = paste0("fulldata$",all.vars(cond[[i]])[1],"<-tempvalues")))
-    eval(parse(text = paste0("result$Res",all.vars(cond[[i]])[1],"<-tempRes")))}
+    eval(parse(text = paste0("result$Residuals$Res",all.vars(cond[[i]])[1],"<-tempRes")))}
 
   betahat<-matrix(glm(model,data = fulldata)$coefficients[-1])
   colnames(betahat)<-"Estimat"
