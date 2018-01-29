@@ -22,13 +22,13 @@ TimeVaryGcomp<-function(model, cond, data, nboot=100, missingObs = FALSE, family
   result$nboot<-nboot
   
   for(i in 1:length(cond)){
-    GenLinModel<-glm(cond[[i]],data = DataMis)
+    GenLinModel<-glm(cond[[i]],data = DataMis, family = family)
     tempRes<-GenLinModel$residuals
     tempvalues<-predict(GenLinModel,type="response",newdata=fulldata)
     eval(parse(text = paste0("fulldata$",all.vars(cond[[i]])[1],"<-tempvalues")))
     eval(parse(text = paste0("result$Residuals$Res",all.vars(cond[[i]])[1],"<-tempRes")))}
 
-  betahat<-matrix(glm(model,data = fulldata)$coefficients[-1])
+  betahat<-matrix(glm(model,data = fulldata, family = family)$coefficients[-1])
   colnames(betahat)<-"Estimat"
   rownames(betahat)<-all.vars(model)[-1]
   result$coefficients<-t(betahat)
