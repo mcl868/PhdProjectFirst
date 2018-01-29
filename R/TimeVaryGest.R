@@ -12,6 +12,10 @@ TimeVaryGest<-function(model, cond, data, nboot=100, missingObs = FALSE, family 
     fulldata<-DataMis<-data[eval(parse(text=paste0("!is.na(data$",colnames(data),")",collapse = " & "))),]
   }
  
+  for(i in 1:length(cond)){
+    tempRes<-glm(cond[[i]],data=DataMis,family=family)$residuals
+    eval(parse(text = paste0("result$Residuals$Res",all.vars(cond[[i]])[1],"<-tempRes")))}
+
   Ahat<-lapply(1:length(cond),function(i)predict(glm(cond[[i]],data=DataMis,family=family),type = "response",newdata=fulldata))
   A<-lapply(1:length(cond),function(i)eval(parse(text=paste0("fulldata$", all.vars(formula(cond[[i]]))[1]))))
   TreatRes<-lapply(1:length(cond),function(i)A[[i]]-Ahat[[i]])
