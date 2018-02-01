@@ -4,12 +4,14 @@ TimeVaryGcomp<-function(model, cond, data, nboot=100, missingObs = FALSE, family
 
   if(missingObs){
     data$Nmis<-eval(parse(text=paste0("is.na(data$",all.vars(cond[[length(cond)]]),")",collapse = "+")))
-    DataMis<-data[data$Nmis<=missingObs,]
-    fulldata<-data[eval(parse(text=paste0("!is.na(data$",all.vars(cond[[length(cond)]]),")",collapse = " & "))),]
+    DataMis<-data[data$Nmis<=missingObs,all.vars(cond[[length(cond)]])]
+    fulldata<-data[eval(parse(text=paste0("!is.na(data$",all.vars(cond[[length(cond)]]),")",collapse = " & "))),
+                   all.vars(cond[[length(cond)]])]
     DataMis$Nmis<-NULL
     fulldata$Nmis<-NULL
   } else {
-    fulldata<-DataMis<-data[eval(parse(text=paste0("!is.na(data$",all.vars(cond[[length(cond)]]),")",collapse = " & "))),]
+    fulldata<-DataMis<-data[eval(parse(text=paste0("!is.na(data$",all.vars(cond[[length(cond)]]),")",collapse = " & "))),
+                           all.vars(cond[[length(cond)]])]
   }
 
   result$cond<-cond
