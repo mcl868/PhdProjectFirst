@@ -1,8 +1,13 @@
-TimeVaryGcomp<-function(model, cond, data, nboot=100, missingObs = FALSE, family = gaussian(), ...){
+TimeVaryGcomp<-function(model, cond, data, nboot=100, missingObs = FALSE, var.list=TRUE,
+                        family = gaussian(), ...){
   result<-list(model=model)
   result$Namedata<-deparse(substitute(data))
 
-  ListOfVariables<-unique(c(all.vars(model),unlist(sapply(1:length(cond), function(i) all.vars(cond[[i]])))))
+  if(var.list){
+    ListOfVariables<-unique(c(all.vars(model),unlist(sapply(1:length(cond), function(i) all.vars(cond[[i]])))))
+  } else {
+    ListOfVariables<-var.list
+  }
 
   if(missingObs){
     data$Nmis<-eval(parse(text=paste0("is.na(data$",ListOfVariables,")",collapse = "+")))
