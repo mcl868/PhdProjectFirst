@@ -2,11 +2,12 @@ TimeVaryGcomp<-function(model, cond, data, nboot=100, missingObs = FALSE, family
   result<-list(model=model)
   result$Namedata<-deparse(substitute(data))
 
+  ListOfVariables<-unique(c(all.vars(model),unlist(sapply(1:length(cond), function(i) all.vars(cond[[i]])))))
+
   if(missingObs){
-    data$Nmis<-eval(parse(text=paste0("is.na(data$",all.vars(cond[[length(cond)]]),")",collapse = "+")))
-    DataMis<-data[data$Nmis<=missingObs,all.vars(cond[[length(cond)]])]
-    fulldata<-data[eval(parse(text=paste0("!is.na(data$",all.vars(cond[[length(cond)]]),")",collapse = " & "))),
-                   all.vars(cond[[length(cond)]])]
+    data$Nmis<-eval(parse(text=paste0("is.na(data$",ListOfVariables,")",collapse = "+")))
+    DataMis<-data[data$Nmis<=missingObs,ListOfVariables]
+    fulldata<-data[eval(parse(text=paste0("!is.na(data$",ListOfVariables,")",collapse = " & "))),ListOfVariables]
     DataMis$Nmis<-NULL
     fulldata$Nmis<-NULL
   } else {
