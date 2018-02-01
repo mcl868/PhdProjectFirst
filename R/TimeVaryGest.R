@@ -1,9 +1,9 @@
-TimeVaryGest<-function(model, cond, data, nboot = 100, missingObs = FALSE, var.list = TRUE,
+TimeVaryGest<-function(model, cond, data, nboot = 100, missingObs = FALSE, var.list,
                        family = gaussian(), ...){
   result<-list(model=model)
   result$Namedata<-deparse(substitute(data))
 
-  if(var.list){
+  if(missing(var.list)){
     ListOfVariables<-unique(c(all.vars(model),unlist(sapply(1:length(cond), function(i) all.vars(cond[[i]])))))
   } else {
     ListOfVariables<-var.list
